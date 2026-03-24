@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Hospitalar</title>
+    <link rel="stylesheet" href="static/style">
+</head>
+<body>
+    <div class="container">
+        <h1>💉 Fila Saúde</h1>
+
+        {% if tela == 'login' %}
+            <h3>Acesso</h3>
+            <form action="/login" method="POST">
+                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="text" name="cpf" placeholder="CPF" required>
+                <button type="submit" class="btn-blue">Entrar</button>
+            </form>
+
+        {% elif tela == 'escolha' %}
+            <p>Bem-vindo, <b>{{ nome }}</b></p>
+            <a href="/entrar_fila" class="btn btn-blue">Sou PACIENTE</a>
+            <a href="/atendente" class="btn btn-outline">Sou ATENDENTE</a>
+            <a href="/sair" style="color:red; font-size:12px;">Sair</a>
+
+        {% elif tela == 'paciente' %}
+            <h3>Sua Senha</h3>
+            {% if p %}
+                <div style="font-size: 20px; color: #007bff;">{{ p.status }}</div>
+            {% else %}
+                <p>Você não está na fila.</p>
+                <a href="/entrar_fila" class="btn btn-green">Entrar Agora</a>
+            {% endif %}
+            <a href="/" class="btn btn-outline">Voltar</a>
+
+        {% elif tela == 'atendente' %}
+            <h3>Painel</h3>
+            <table>
+                <tr><th>Paciente</th><th>Ação</th></tr>
+                {% for p in fila %}
+                <tr>
+                    <td>{{ p.nome }} <br><small class="status-tag">{{ p.status }}</small></td>
+                    <td>
+                        {% if p.status != 'Finalizado' %}
+                            <a href="/mudar_status/{{ loop.index0 }}" style="color:green">Próximo</a>
+                        {% else %} ✅ {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <a href="/" class="btn btn-outline">Voltar</a>
+        {% endif %}
+    </div>
+</body>
+</html>

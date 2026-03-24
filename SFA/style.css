@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    padding: 40px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+h2 {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    padding: 12px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+input {
+    width: 200px;
+    border: 2px solid #ddd;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+button#joinBtn {
+    background: #2196F3;
+    font-size: 18px;
+    padding: 15px 30px;
+}
+
+button#joinBtn:hover {
+    background: #1976D2;
+}
+
+#loginSection, #roleSection {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto 30px;
+}
+
+#pacienteView, #atendenteView {
+    text-align: center;
+}
+
+#queueTable {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+#queueTable th, #queueTable td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#queueTable th {
+    background: #f4f4f4;
+    font-weight: bold;
+}
+
+.state-waiting {
+    background: #fff3cd;
+    color: #856404;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.state-serving {
+    background: #cce5ff;
+    color: #004085;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.state-done {
+    background: #d4edda;
+    color: #155724;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    #queueTable {
+        font-size: 14px;
+    }
+    
+    input {
+        width: 100%;
+        margin: 5px 0;
+    }
+}

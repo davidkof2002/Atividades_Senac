@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Filas de Atendimento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>💉 Sistema de Filas de Atendimento</h1>
+        
+        <!-- Login/Register Section -->
+        <div id="loginSection">
+            <h2>Acesso ao Sistema</h2>
+            <input type="text" id="username" placeholder="Nome">
+            <input type="email" id="email" placeholder="Email">
+            <button onclick="registerLogin()">Cadastrar/Login</button>
+        </div>
+        
+        <!-- Role Selection -->
+        <div id="roleSection" style="display: none;">
+            <h2>Escolha seu Papel</h2>
+            <select id="roleSelect">
+                <option value="paciente">Paciente (Entrar na Fila)</option>
+                <option value="atendente">Atendente (Gerenciar Fila)</option>
+            </select>
+            <button onclick="selectRole()">Selecionar</button>
+        </div>
+        
+        <!-- User (Paciente) View -->
+        <div id="pacienteView" style="display: none;">
+            <h2>Área do Paciente</h2>
+            <p><strong>Usuário:</strong> <span id="currentUser"></span></p>
+            <p><strong>Status:</strong> <span id="myStatus">Aguardando cadastro...</span></p>
+            <p><strong>Posição/Senha:</strong> <span id="myTicket"></span></p>
+            <button id="joinBtn" onclick="joinQueue()">Entrar na Fila</button>
+            <button onclick="logout()">Sair</button>
+        </div>
+        
+        <!-- Attendant View -->
+        <div id="atendenteView" style="display: none;">
+            <h2>Painel do Atendente</h2>
+            <button onclick="callNext()">Chamar Próximo (Em Atendimento)</button>
+            <button onclick="finishCurrent()">Finalizar Atendimento</button>
+            <button onclick="clearQueue()">Limpar Fila</button>
+            <h3>Fila Atual</h3>
+            <table id="queueTable">
+                <thead>
+                    <tr>
+                        <th>Senha</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Estado</th>
+                        <th>Posição</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <button onclick="logout()">Sair</button>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

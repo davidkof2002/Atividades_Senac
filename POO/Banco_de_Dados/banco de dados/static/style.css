@@ -1,0 +1,54 @@
+/* Estilo basico para facilitar a leitura em sala */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.caixa {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+input,
+button {
+    padding: 10px;
+    margin: 5px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #e8f0fe;
+}
+
+a {
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.linha {
+    display: flex;
+    gap: 10px;
+}
+
+.linha form {
+    margin: 0;
+}

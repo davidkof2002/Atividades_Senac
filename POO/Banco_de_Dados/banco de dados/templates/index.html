@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="caixa">
+        <h1>Cadastro de Livros</h1>
+        <p>Exemplo simples com Python, HTML, CSS e SQLite.</p>
+        <p><strong>Total de livros:</strong> {{ total }}</p>
+    </div>
+
+    <div class="caixa">
+        <h2>{{ "Editar Livro" if livro_edicao else "Cadastrar Livro" }}</h2>
+
+        <!-- Se existir um livro em edicao, o formulario faz UPDATE. -->
+        <form method="post" action="{{ url_for('atualizar', id=livro_edicao['id']) if livro_edicao else url_for('adicionar') }}">
+            <input type="text" name="titulo" placeholder="Titulo" value="{{ livro_edicao['titulo'] if livro_edicao else '' }}" required>
+            <input type="text" name="autor" placeholder="Autor" value="{{ livro_edicao['autor'] if livro_edicao else '' }}" required>
+            <input type="number" name="ano" placeholder="Ano" value="{{ livro_edicao['ano'] if livro_edicao else '' }}" required>
+            <button type="submit">{{ "Salvar Alteracoes" if livro_edicao else "Adicionar Livro" }}</button>
+        </form>
+
+        {% if livro_edicao %}
+            <p><a href="{{ url_for('index') }}">Cancelar edicao</a></p>
+        {% endif %}
+    </div>
+
+    <div class="caixa">
+        <h2>Buscar por titulo</h2>
+
+        <!-- Formulario de busca usando WHERE + LIKE -->
+        <form method="get" action="{{ url_for('index') }}">
+            <input type="text" name="busca" placeholder="Digite parte do titulo" value="{{ busca }}">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <div class="caixa">
+        <h2>Lista de Livros</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Autor</th>
+                <th>Ano</th>
+                <th>Acoes</th>
+            </tr>
+            {% for livro in livros %}
+            <tr>
+                <td>{{ livro["id"] }}</td>
+                <td>{{ livro["titulo"] }}</td>
+                <td>{{ livro["autor"] }}</td>
+                <td>{{ livro["ano"] }}</td>
+                <td class="linha">
+                    <a href="{{ url_for('index', editar=livro['id']) }}">Editar</a>
+                    <form method="post" action="{{ url_for('excluir', id=livro['id']) }}">
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
