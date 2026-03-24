@@ -2,54 +2,50 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema Hospitalar</title>
-    <link rel="stylesheet" href="static/style">
+    <title>Sistema de Fila</title>
+    <!-- Essa linha conecta o HTML com o seu CSS na pasta static -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
     <div class="container">
-        <h1>💉 Fila Saúde</h1>
+        <h1>💉 Fila de Espera</h1>
+        
+        <form action="/adicionar" method="POST">
+            <input type="text" name="nome" placeholder="Nome do paciente" required>
+            <button type="submit">Entrar na Fila</button>
+        </form>
 
-        {% if tela == 'login' %}
-            <h3>Acesso</h3>
-            <form action="/login" method="POST">
-                <input type="text" name="nome" placeholder="Nome" required>
-                <input type="text" name="cpf" placeholder="CPF" required>
-                <button type="submit" class="btn-blue">Entrar</button>
-            </form>
-
-        {% elif tela == 'escolha' %}
-            <p>Bem-vindo, <b>{{ nome }}</b></p>
-            <a href="/entrar_fila" class="btn btn-blue">Sou PACIENTE</a>
-            <a href="/atendente" class="btn btn-outline">Sou ATENDENTE</a>
-            <a href="/sair" style="color:red; font-size:12px;">Sair</a>
-
-        {% elif tela == 'paciente' %}
-            <h3>Sua Senha</h3>
-            {% if p %}
-                <div style="font-size: 20px; color: #007bff;">{{ p.status }}</div>
-            {% else %}
-                <p>Você não está na fila.</p>
-                <a href="/entrar_fila" class="btn btn-green">Entrar Agora</a>
-            {% endif %}
-            <a href="/" class="btn btn-outline">Voltar</a>
-
-        {% elif tela == 'atendente' %}
-            <h3>Painel</h3>
-            <table>
-                <tr><th>Paciente</th><th>Ação</th></tr>
-                {% for p in fila %}
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ p.nome }} <br><small class="status-tag">{{ p.status }}</small></td>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in lista %}
+                <tr>
+                    <td>{{ p.nome }}</td>
+                    <td><span class="status-badge">{{ p.status }}</span></td>
                     <td>
-                        {% if p.status != 'Finalizado' %}
-                            <a href="/mudar_status/{{ loop.index0 }}" style="color:green">Próximo</a>
-                        {% else %} ✅ {% endif %}
+                        {% if p.status == 'Aguardando' %}
+                            <a href="/atender/{{ loop.index0 }}"><button style="background: #2196F3;">Atender</button></a>
+                        {% elif p.status == 'Em Atendimento' %}
+                            <a href="/finalizar/{{ loop.index0 }}"><button style="background: #f44336;">Finalizar</button></a>
+                        {% else %}
+                            ✅
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
-            </table>
-            <a href="/" class="btn btn-outline">Voltar</a>
-        {% endif %}
+            </tbody>
+        </table>
+
+        <br>
+        <a href="/limpar" style="color: #666; font-size: 0.8em;">Limpar tudo</a>
     </div>
+
 </body>
 </html>
